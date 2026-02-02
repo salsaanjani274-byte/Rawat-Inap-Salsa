@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HOME - salsa</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>My Dashboard</h2>
+      <nav>
+        <ul>
+          <li class="active">Salsa Anjani</li>
+          <li><a href="/transaksi">Data Trasaksi</a></li>
+          <li><a href="/tambah_data">Tambah Data</a></li>
+          <li><a href="/">Kembali</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header>
+        <h1>RS Salsa Mandiri</h1>
+      </header>
+
+      <section class="cards">
+        <div class="card">
+        <h3 >Tambah Data Rawat Inap</h3>
+        <form method="post">
+          Nama Pasien :
+                <select name="pasien" class="form-select" required>
+                    <option value="">-- Pilih Pasien --</option>
+                    {% for p in pasien %}
+                        <option value="{{ p.id_pasien }}">{{ p.nama }}</option>
+                    {% endfor %}
+                </select>
+           
+            kamar
+                <select name="kamar" class="form-select" required>
+                    option value="">-- Pilih kamar --</option>
+                    {% for k in kamar %}
+                        <option value="{{ k.id_kamar }}">{{ k.kelas }} {{k.harga}}</option>
+                    {% endfor %}
+                </select>
+        
+          Tanggal masuk : <input type="date" name="tgl_masuk" class="form-control" required>
+          Tanggal keluar : <input type="date" name="tgl_keluar" class="form-control" required>
+          
+            <button type="submit" class="btn btn-success px-4"><i class="bi bi-save"></i> Simpan</button>
+            <a href="/" class="btn btn-secondary px-4"><i class="bi bi-arrow-left"></i> Batal</a>
+        </div>
+    </form>
+    </main>
+  </div>
+</body>
+</html>

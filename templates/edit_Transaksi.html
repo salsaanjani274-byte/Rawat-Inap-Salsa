@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HOME - salsa</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>My Dashboard</h2>
+      <nav>
+        <ul>
+          <li class="active">Salsa Anjani</li>
+          <li><a href="/transaksi">Data Trasaksi</a></li>
+          <li><a href="/tambah_data">Tambah Data</a></li>
+          <li><a href="/">Kembali</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header>
+        <h1>RS Salsa Mandiri</h1>
+      </header>
+
+      <section class="cards">
+        <div class="card">
+        <h3 >Tambah Data Transaksi</h3>
+        <form method="post">
+        TOtal Biaya<input type="number" name="total_biaya" class="form-control" value="{{ transaksi.total_biaya }}" required>
+        
+        Tanggal <input type="date" name="tgl" class="form-control" value="{{ transaksi.tgl }}" required>
+        
+        Status Pembayaran
+            <select name="status_pembayaran" class="form-control">
+                <option value="1" {% if transaksi.status_pembayaran %}selected{% endif %}>Lunas</option>
+                <option value="0" {% if not transaksi.status_pembayaran %}selected{% endif %}>Belum Lunas</option>
+            </select>
+       
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="/transaksi" class="btn btn-secondary">Batal</a>
+        </div>
+    </form>
+    </main>
+  </div>
+</body>
+</html>

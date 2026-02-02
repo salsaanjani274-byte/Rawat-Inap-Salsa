@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HOME - salsa</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>My Dashboard</h2>
+      <nav>
+        <ul>
+          <li class="active">Salsa Anjani</li>
+          <li><a href="/transaksi">Data Trasaksi</a></li>
+          <li><a href="/tambah_datarawatinap">Tambah Data Rawat Inap</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header>
+        <h1>RS Salsa Mandiri</h1><br>
+      </header>
+
+      <section class="cards">
+        <div class="card">
+          <h3>Data Pasien Rawat Inap</h3>
+          <div class="button">
+            <a href="/cetak_pasien" target="_blank">Cetak PDF</a>
+          </div>
+        <table>
+          <tr>
+            <th>ID Pasien</th>
+            <th>Nama Pasien</th>
+            <th>alamat</th>
+            <th>kontak</th>
+          </tr>
+        </div>
+        {% for row in pasien %}
+        <tr>
+          <td>R-00{{ row.id_pasien }}</td>
+          <td>{{ row.nama }}</td>
+          <td>{{ row.alamat }}</td>
+          <td>{{ row.kontak }}</td>
+          
+        </tr>
+        {% endfor %}
+        </table>
+    </main>
+  </div>
+</body>
+</html>

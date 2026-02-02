@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HOME - salsa</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>My Dashboard</h2>
+      <nav>
+        <ul>
+          <li class="active">Salsa Anjani</li>
+          <li><a href="/transaksi">Data Trasaksi</a></li>
+          <li><a href="/tambah_data">Tambah Data</a></li>
+          <li><a href="/">Kembali</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header>
+        <h1>RS Salsa Mandiri</h1>
+      </header>
+
+      <section class="cards">
+        <div class="card">
+        <h3 class="mb-4"> Data Transaksi</h3>
+          <div class="button">
+            <a href="/tambah_data">Tambah Data Transaksi</a>
+          </div>
+          <div class="button">
+            <a href="/cetak_transaksi" target="_blank">Cetak PDF</a>
+          </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <table>
+        <tr>
+            <th>ID Transaksi</th>
+            <th>Nama Pasien</th>
+            <th>Total Biaya</th>
+            <th>Tanggal</th>
+            <th colspan="2">Status</th>
+            <th colspan="2">Aksi</th>
+        </tr>
+        </div>
+        {% for t in data_transaksi %}
+        <tr>
+            <td>TRX-00{{ t.id_transaksi }}</td>
+            <td>{{ t.nama }}</td>
+            <td><strong>Rp {{ "{:,.0f}".format(t.total_biaya) }}</strong></td>
+            <td>{{ t.tgl }}</td>
+            <td>
+                {% if t.status_pembayaran %}
+                <span class="badge bg-success">Lunas</span>
+                {% else %}
+                <span class="badge bg-warning text-dark">Belum Lunas</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="/transaksi/update/{{ t.id_transaksi }}" class="btn btn-info btn-sm text-white">Ubah Status</a>
+            </td>
+            <td>
+                <a href="/transaksi/edit/{{ t.id_transaksi }}" class="btn btn-warning btn-sm text-white">Edit</a>
+            </td>
+            <td>
+                <a href="/transaksi/delete/{{ t.id_transaksi }}" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data ini?')">Hapus</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </main>
+  </div>
+</body>
+</html>
